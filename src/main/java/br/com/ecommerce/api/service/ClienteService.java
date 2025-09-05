@@ -12,12 +12,13 @@ public class ClienteService {
    // Injecao de dependencia
    //  Falar que Service depende de alguem
     private final ClienteRepository clienteRepository;
+
     public ClienteService(ClienteRepository repo) {
     clienteRepository = repo;
     }
 
     // Listar todos os Clientes
-    public List<Cliente> ListarTodos () {
+    public List<Cliente> listarTodos () {
         return clienteRepository.findAll();
     }
 }

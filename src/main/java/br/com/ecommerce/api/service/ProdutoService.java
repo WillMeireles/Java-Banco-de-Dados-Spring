@@ -1,6 +1,7 @@
 package br.com.ecommerce.api.service;
 
 
+import br.com.ecommerce.api.model.Cliente;
 import br.com.ecommerce.api.model.Produto;
 import br.com.ecommerce.api.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,13 @@ public class ProdutoService {
     }
 
     // Listar todos os Clientes
-    public List<Produto> listarTodos () {
+    public List<Produto> listarTodos() {
         return produtoRepository.findAll();
+
+
+    }
+
+    public Produto cadastrarProduto(Produto pd) {
+        return produtoRepository.save(pd);
     }
 }
-

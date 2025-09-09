@@ -9,16 +9,22 @@ import java.util.List;
 
 @Service
 public class ClienteService {
-   // Injecao de dependencia
-   //  Falar que Service depende de alguem
+    // Injecao de dependencia
+    //  Falar que Service depende de alguem
     private final ClienteRepository clienteRepository;
 
     public ClienteService(ClienteRepository repo) {
-    clienteRepository = repo;
+        clienteRepository = repo;
     }
 
     // Listar todos os Clientes
-    public List<Cliente> listarTodos () {
+    public List<Cliente> listarTodos() {
         return clienteRepository.findAll();
+    }
+
+    public Cliente cadastrarCliente(Cliente cl) {
+        return clienteRepository.save(cl);
+
+
     }
 }

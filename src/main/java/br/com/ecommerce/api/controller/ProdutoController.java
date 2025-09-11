@@ -33,14 +33,39 @@ public class ProdutoController {
     public ResponseEntity<Produto> cadastrarProduto(
             @RequestBody Produto produto
 
-    )
-
-    {
+    ) {
 
         produtoService.cadastrarProduto(produto);
 
-      return ResponseEntity.status(HttpStatus.CREATED).body(produto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(produto);
 
-}
+    }
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarClientePorId(@PathVariable Integer id) {
+        Produto produto = produtoService.buscarporId(id);
+
+        if (produto == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("cliente" + id + " nao encontrado!");
+
+        }
+
+        return ResponseEntity.ok(produto);
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarProduto(@PathVariable Integer id) {
+        Produto produto = produtoService.deletarProduto(id);
+
+        if (produto == null) {
+            return ResponseEntity.status(404)
+                    .body("Cliente " + id + " não encontrado!");
+
+        }
+
+        return ResponseEntity.ok(produto);
+
+    }
 }

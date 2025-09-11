@@ -1,6 +1,7 @@
 package br.com.ecommerce.api.service;
 
 
+import br.com.ecommerce.api.model.Cliente;
 import br.com.ecommerce.api.model.Item;
 import br.com.ecommerce.api.model.Produto;
 import br.com.ecommerce.api.repository.ItemRepository;

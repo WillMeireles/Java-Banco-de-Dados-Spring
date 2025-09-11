@@ -26,35 +26,70 @@ public class ClienteService {
         return clienteRepository.save(cl);
 
 
+    }
 
-        }
-
-    public Cliente deletarCliente (Integer id) {
-        Cliente cliente = buscarPorid(id);
-
-        //2. Se nao existir, retorno nulo
-        if (cliente == null) {
-            return null;
-
-            //3. Se existir, excluo
-            clienteRepository.delete(cliente);
-
-        }
-        //1. Verifico se o cliente existe
-        Cliente cliente = cliente.Service.deletarCliente(id);
-
-
-
-        // 2. Se não existir retorno erro
-        if (cliente == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Cliente " + id + " não encontrado!");
-        }
-
-        // 3. Se existir, retorno ok
-        return ResponseEntity.ok(cliente);
+    public Cliente buscarPorId(Integer id) {
+    return clienteRepository.findById(id).orElse(null);
 
     }
+
+    public Cliente deletarCliente(Integer id) {
+     Cliente cliente = buscarPorId(id);
+
+     if (cliente == null) {
+         return null;
+     }
+
+     clienteRepository.delete(cliente);
+        return cliente;
+    }
+    public Cliente atualizarCliente(Integer id, Cliente clienteNovo) {
+        // 1. Procurar quem eu quero atualizar
+        Cliente clienteAntigo = buscarPorId(id);
+
+        // 2. Se eu não achar, retorno nulo
+        if (clienteAntigo == null) {
+            return null;
+        }
+
+        // 3. Se eu achar eu atualizo
+        clienteAntigo.setSenha(clienteNovo.getSenha());
+        clienteAntigo.setNomeCompleto(clienteNovo.getNomeCompleto());
+        clienteAntigo.setDataCadastro(clienteNovo.getDataCadastro());
+        clienteAntigo.setTelefone(clienteNovo.getTelefone());
+        return clienteRepository.save(clienteAntigo);
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarCliente(
+            @PathVariable Integer id, @RequestBody Cliente clienteNovo) {
+        // 1. Tento atualizar o Cliente
+        Cliente cl = clienteService.atualizarCliente(id, clienteNovo);
+
+
+        // 2. Se não achar o Cliente, mostro erro
+        if (cl == null) {
+            return ResponseEntity.status(404)
+                    .body("Cliente não encontrado!");
+        }
+
+        // 3. Se achar retorno ok
+        return ResponseEntity.ok(cl);
+    }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

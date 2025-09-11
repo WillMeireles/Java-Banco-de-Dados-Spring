@@ -28,4 +28,23 @@ public class ProdutoService {
     public Produto cadastrarProduto(Produto pd) {
         return produtoRepository.save(pd);
     }
+
+    public Produto buscarporId(Integer id) {
+        return produtoRepository.findById(id).get();
+
+    }
+
+    public Produto deletarProduto(Integer id) {
+        Produto produto = buscarporId(id);
+
+        if (produto == null) {
+            return null;
+
+        }
+
+        produtoRepository.delete(produto);
+        return produto;
+
+    }
+
 }
